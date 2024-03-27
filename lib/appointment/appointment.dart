@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ghswebsite/appointment/appointMobile.dart';
 import 'package:ghswebsite/commonwidget/buttonwidget.dart';
@@ -206,7 +203,7 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                       .toList(),
                                   onChanged: (String? value) {
                                     setState(() {
-                                      print('Selected value: $value');
+                                      //print('Selected value: $value');
                                       //dropdownTxt = '';
                                       doctorselectedValue = value;
                                       isSelectedDoctor = true;
@@ -236,17 +233,17 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                         firstDate: DateTime(2000),
                                         lastDate: DateTime(2101));
                                     if (pickedDate != null) {
-                                      print(pickedDate);
+                                      //print(pickedDate);
                                       String formattedDate =
                                           DateFormat('dd-MM-yyyy')
                                               .format(pickedDate);
-                                      print(formattedDate);
+                                      //print(formattedDate);
                                       setState(() {
                                         dateController.text =
                                             formattedDate; //set foratted date to TextField value.
                                       });
                                     } else {
-                                      print("Date is not selected");
+                                      //print("Date is not selected");
                                     }
                                   },
                                 ),
@@ -396,7 +393,7 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                 ),
               ],
             )
-          : AppointmentMobile(),
+          : const AppointmentMobile(),
     );
   }
 

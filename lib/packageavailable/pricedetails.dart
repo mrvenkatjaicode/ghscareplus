@@ -5,7 +5,7 @@ import 'package:ghswebsite/constants/color.dart';
 import 'package:ghswebsite/packageavailable/procedetmob.dart';
 
 class PriceDetails extends StatefulWidget {
-  const PriceDetails({Key? key}) : super(key: key);
+  const PriceDetails({super.key});
 
   @override
   State<PriceDetails> createState() => _PriceDetailsState();
@@ -240,6 +240,6 @@ class _PriceDetailsState extends State<PriceDetails> {
               ],
             ),
           )
-        : PriceDetMob();
+        : const PriceDetMob();
   }
 }

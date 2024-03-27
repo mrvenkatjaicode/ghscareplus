@@ -170,6 +170,6 @@ class _BlogPostState extends State<BlogPost> {
               ],
             ),
           )
-        : BlogPostMobile();
+        : const BlogPostMobile();
   }
 }

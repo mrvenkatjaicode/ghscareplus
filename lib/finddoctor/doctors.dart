@@ -39,7 +39,7 @@ class _OurDoctorsState extends State<OurDoctors> {
   ];
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
+    //var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return width > 1000
         ? Padding(
@@ -106,7 +106,7 @@ class _OurDoctorsState extends State<OurDoctors> {
                                                       .withOpacity(0.5),
                                                   spreadRadius: 3,
                                                   blurRadius: 7,
-                                                  offset: Offset(0, 3),
+                                                  offset: const Offset(0, 3),
                                                 ),
                                               ],
                                         shape: BoxShape.circle,
@@ -181,6 +181,6 @@ class _OurDoctorsState extends State<OurDoctors> {
                 ],
               ),
             ))
-        : DoctorsMobile();
+        : const DoctorsMobile();
   }
 }

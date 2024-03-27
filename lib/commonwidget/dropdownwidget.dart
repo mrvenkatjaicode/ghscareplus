@@ -23,12 +23,11 @@ class DropDownWidget extends StatefulWidget {
 class _DropDownWidgetState extends State<DropDownWidget> {
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return DropdownButtonHideUnderline(
       child: DropdownButton2<String>(
         //barrierColor: Colors.red,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         isExpanded: true,
         hint: Row(
           children: [

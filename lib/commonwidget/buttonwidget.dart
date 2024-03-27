@@ -39,7 +39,7 @@ class CommonButtonWidget extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(btnText,style: TextStyle(fontWeight: FontWeight.bold),),
+        child: Text(btnText,style: const TextStyle(fontWeight: FontWeight.bold),),
       ),
     );
   }

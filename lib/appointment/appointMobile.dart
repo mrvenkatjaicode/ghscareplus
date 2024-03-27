@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ghswebsite/commonwidget/buttonwidget.dart';
 import 'package:ghswebsite/commonwidget/datepickerwidget.dart';
@@ -182,7 +180,7 @@ class _AppointmentMobileState extends State<AppointmentMobile> {
                           .toList(),
                       onChanged: (String? value) {
                         setState(() {
-                          print('Selected value: $value');
+                          //print('Selected value: $value');
                           //dropdownTxt = '';
                           doctorselectedValue = value;
                           isSelectedDoctor = true;
@@ -208,16 +206,16 @@ class _AppointmentMobileState extends State<AppointmentMobile> {
                             firstDate: DateTime(2000),
                             lastDate: DateTime(2101));
                         if (pickedDate != null) {
-                          print(pickedDate);
+                          //print(pickedDate);
                           String formattedDate =
                               DateFormat('dd-MM-yyyy').format(pickedDate);
-                          print(formattedDate);
+                          //print(formattedDate);
                           setState(() {
                             dateController.text =
                                 formattedDate; //set foratted date to TextField value.
                           });
                         } else {
-                          print("Date is not selected");
+                          //print("Date is not selected");
                         }
                       },
                     ),

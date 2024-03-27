@@ -100,7 +100,7 @@ class _DoctorsMobileState extends State<DoctorsMobile> {
                                                   Colors.white.withOpacity(0.5),
                                               spreadRadius: 3,
                                               blurRadius: 7,
-                                              offset: Offset(0, 3),
+                                              offset: const Offset(0, 3),
                                             ),
                                           ],
                                     shape: BoxShape.circle,
