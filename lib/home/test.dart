@@ -193,6 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
 void _showCheckBoxDialog(
     BuildContext context, List<Map<String, dynamic>> dataList) {
   final PopUpController popupCtrl = Get.put(PopUpController());
+  bool showError = false;
 
   showDialog(
     context: context,
@@ -231,37 +232,23 @@ void _showCheckBoxDialog(
                     const SizedBox(width: 20.0),
                     ElevatedButton(
                       onPressed: () {
-                        String errorMessage = _validateInputs(popupCtrl);
-                        if (errorMessage.isEmpty) {
+                        bool isValid = _validateInputs(popupCtrl);
+                        if (isValid) {
                           // Proceed with submitting the form
                           popupCtrl.sendEmail(
-                            selectedTests: popupCtrl.selectedTests,
-                            email: popupCtrl.emailCntrl.text,
-                            name: popupCtrl.username.text,
-                          );
+                              selectedTests: popupCtrl.selectedTests,
+                              email: popupCtrl.emailCntrl.text,
+                              name: popupCtrl.username.text);
 
                           popupCtrl.clearCheckboxes();
                           popupCtrl.emailCntrl.clear();
                           popupCtrl.username.clear();
                           Navigator.of(context).pop();
                         } else {
-                          // Display error message
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Error'),
-                                content: Text(errorMessage),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          // Set showError to true to display error message
+                          setState(() {
+                            showError = true;
+                          });
                         }
                       },
                       style: ButtonStyle(
@@ -285,6 +272,16 @@ void _showCheckBoxDialog(
                     ),
                   ],
                 ),
+                // Error message text widget
+                showError
+                    ? const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          'Please select at least one test',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      )
+                    : const SizedBox(), // Placeholder SizedBox if no error message
               ],
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -404,39 +401,11 @@ void _showCheckBoxDialog(
   );
 }
 
-String _validateInputs(PopUpController popupCtrl) {
+bool _validateInputs(PopUpController popupCtrl) {
   bool areAllChecked = popupCtrl.checkboxValues.any((value) => value);
-
-  String? isValidName(String name) {
-    // Regular expression pattern for name validation
-    final nameRegex = RegExp(r'^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$');
-    return nameRegex.hasMatch(name) ? null : 'Invalid name format.';
-  }
-
-  String? isValidEmail(String email) {
-    // Regular expression pattern for email validation
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    return emailRegex.hasMatch(email) ? null : 'Invalid email format.';
-  }
-
-  String? nameError = isValidName(popupCtrl.username.text);
-  String? emailError = isValidEmail(popupCtrl.emailCntrl.text);
-
-  // Display error message for checkbox
-  if (!areAllChecked) {
-    return 'Please select at least one test.';
-  }
-
-  // Display error message for name
-  if (nameError != null) {
-    return 'Please enter a valid name.';
-  }
-  // Display error message for email
-  if (emailError != null) {
-    return 'Please enter a valid email address.';
-  }
-
-  return ''; // if all are valid
+  bool areAllFilled = popupCtrl.username.text.isNotEmpty &&
+      popupCtrl.emailCntrl.text.isNotEmpty;
+  return areAllChecked && areAllFilled;
 }
 
 class NavBarItem extends StatelessWidget {

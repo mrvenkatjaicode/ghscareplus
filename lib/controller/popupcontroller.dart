@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,25 +17,20 @@ class PopUpController extends GetxController {
   void toggleCheckbox(int index, List<Map<String, dynamic>> dataList) {
     checkboxValues[index] = !checkboxValues[index];
     if (checkboxValues[index]) {
-      // If checkbox is selected, add the text from the corresponding text field to the selectedTests list
       selectedTests.add(dataList[index]['testname']);
     } else {
-      // If checkbox is unselected, remove the text from the corresponding text field from the selectedTests list
       selectedTests.remove(dataList[index]['testname']);
     }
-    // Update the Next button state based on the selectedTests list
     updateNextButtonState();
   }
 
   void clearCheckboxes() {
     checkboxValues.fillRange(0, checkboxValues.length, false);
-    // Clear the selectedTests list when clearing checkboxes
     selectedTests.clear();
     update();
   }
 
   void updateNextButtonState() {
-    // Enable the Next button if selectedTests list is not empty
     isNextButtonEnabled.value = selectedTests.isNotEmpty;
   }
 
@@ -47,9 +41,9 @@ class PopUpController extends GetxController {
   }) async {
     print("selectedList ${selectedTests.join(', ')}");
     print(email);
-    var response = 200;
+    //var response = 200;
 
-    /*  final serviceId = 'service_77kd7x8';
+     final serviceId = 'service_77kd7x8';
     final templateId = 'template_3zilz4k';
     final userId = 'gMLbR3hg0DRqtvvgw';
 
@@ -71,8 +65,8 @@ class PopUpController extends GetxController {
         }
       }),
     );
-    print(response.body); */
-    if (/* response.statusCode */ response == 200) {
+    print(response.body);
+    /* if (/* response.statusCode */ response == 200) {
       // Show success alert if response status code is 200
 
       clearCheckboxes();
@@ -93,7 +87,7 @@ class PopUpController extends GetxController {
           ],
         ),
       );
-    } else {}
+    } else {} */
     //return response.statusCode;
   }
 }
