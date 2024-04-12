@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ghswebsite/about/aboutmobile.dart';
-import 'package:ghswebsite/constants/color.dart';
-import 'package:ghswebsite/constants/imageres.dart';
-import 'package:ghswebsite/constants/stringres.dart';
+import 'package:ghscareplus/about/aboutmobile.dart';
+import 'package:ghscareplus/constants/color.dart';
+import 'package:ghscareplus/constants/imageres.dart';
+import 'package:ghscareplus/constants/stringres.dart';
 
 class AboutUs extends StatefulWidget {
   const AboutUs({super.key});
@@ -47,7 +47,7 @@ class _AboutUsState extends State<AboutUs> {
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.45,
                           height: MediaQuery.of(context).size.height * 0.75,
-                          child: Image.asset(aboutimage, fit: BoxFit.cover)),
+                          child: Image.asset(testlababout, fit: BoxFit.cover)),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.42,
                         height: MediaQuery.of(context).size.height * 0.75,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ghswebsite/constants/color.dart';
-import 'package:ghswebsite/constants/imageres.dart';
-import 'package:ghswebsite/constants/stringres.dart';
+import 'package:ghscareplus/constants/color.dart';
+import 'package:ghscareplus/constants/imageres.dart';
+import 'package:ghscareplus/constants/stringres.dart';
 
 class BlogPostMobile extends StatefulWidget {
   const BlogPostMobile({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ghswebsite/constants/color.dart';
-import 'package:ghswebsite/contact/contactmobile.dart';
+import 'package:ghscareplus/constants/color.dart';
+import 'package:ghscareplus/contact/contactmobile.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});
@@ -33,7 +33,7 @@ class _ContactUsState extends State<ContactUs> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'GHS',
+                          'GHS CAREPLUS LAB',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w900,
@@ -89,16 +89,16 @@ class _ContactUsState extends State<ContactUs> {
                         Row(
                           children: [
                             Text(
-                              'template is made with ',
+                              'site is designed and developed by',
                               style: TextStyle(color: Colors.white),
                             ),
-                            FaIcon(
-                              FontAwesomeIcons.heart,
-                              color: Colors.white,
-                              size: 8,
-                            ),
+                            // FaIcon(
+                            //   FontAwesomeIcons.heart,
+                            //   color: Colors.white,
+                            //   size: 8,
+                            // ),
                             Text(
-                              ' by @NishaVignesh',
+                              ' Nivi Tech',
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -525,7 +525,7 @@ class _ContactUsState extends State<ContactUs> {
                                 width: 10.0,
                               ),
                               Text(
-                                'Anna nagar,chennai',
+                                'Chennai,TN',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ],
@@ -544,7 +544,7 @@ class _ContactUsState extends State<ContactUs> {
                                 width: 10.0,
                               ),
                               Text(
-                                '7871052682',
+                                '9884032603',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ],

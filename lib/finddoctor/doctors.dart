@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ghswebsite/constants/color.dart';
-import 'package:ghswebsite/constants/imageres.dart';
-import 'package:ghswebsite/finddoctor/doctorsmobile.dart';
+import 'package:ghscareplus/constants/color.dart';
+import 'package:ghscareplus/constants/imageres.dart';
+import 'package:ghscareplus/finddoctor/doctorsmobile.dart';
 
 class OurDoctors extends StatefulWidget {
   const OurDoctors({super.key});

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ghswebsite/appointment/appointMobile.dart';
-import 'package:ghswebsite/commonwidget/buttonwidget.dart';
-import 'package:ghswebsite/commonwidget/datepickerwidget.dart';
-import 'package:ghswebsite/commonwidget/dropdownwidget.dart';
-import 'package:ghswebsite/commonwidget/texformfieldwidget.dart';
-import 'package:ghswebsite/constants/color.dart';
-import 'package:ghswebsite/constants/stringres.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'package:ghscareplus/appointment/appointMobile.dart';
+import 'package:ghscareplus/commonwidget/buttonwidget.dart';
+import 'package:ghscareplus/commonwidget/dropdownwidget.dart';
+import 'package:ghscareplus/commonwidget/multilinetextfield.dart';
+import 'package:ghscareplus/commonwidget/texformfieldwidget.dart';
+import 'package:ghscareplus/constants/color.dart';
+import 'package:ghscareplus/constants/stringres.dart';
+import 'package:ghscareplus/controller/appointmentcontroller.dart';
 
 class AppointmentWidget extends StatefulWidget {
   const AppointmentWidget({super.key});
@@ -18,7 +20,6 @@ class AppointmentWidget extends StatefulWidget {
 
 class _AppointmentWidgetState extends State<AppointmentWidget> {
   bool isSelectedDoctor = false;
-  bool isSelectedDept = false;
   //bool isHovered = false;
 
   String? doctorselectedValue;
@@ -26,8 +27,7 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
 
   TimeOfDay timeOfDay = TimeOfDay.now();
 
-  TextEditingController dateController = TextEditingController();
-  TextEditingController timeController = TextEditingController();
+  final AppointmentController appointCtrl = Get.put(AppointmentController());
 
   List<bool> isHoveredList = List.generate(3, (index) => false);
 
@@ -69,8 +69,7 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
   void initState() {
     super.initState();
     setState(() {
-      dateController.text = "";
-      timeController.text = "";
+      appointCtrl.testCtrl.text = "";
     });
   }
 
@@ -117,7 +116,7 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                             color: Colors.white),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Form(
                           child: Padding(
@@ -130,18 +129,52 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextBoxWidget(
+                                  hintTextColor: Colors.grey.shade500,
+                                  focusedborderSide: const UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                    color: Colors.white70,
+                                  )),
+                                  enabledBorderColor:
+                                      const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                    color: Colors.white70,
+                                  )),
+                                  controller: appointCtrl.nameCtrl,
                                   width: 280,
                                   fillColor: Colors.transparent,
                                   hintText: 'Your Name',
                                   cursorHeight: 25,
                                   fontColor: Colors.white,
+                                  //maxLength: 25,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25),
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp(r'[a-zA-Z\s]+')),
+                                  ],
                                 ),
                                 TextBoxWidget(
+                                  hintTextColor: Colors.grey.shade500,
+                                  focusedborderSide: const UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                    color: Colors.white70,
+                                  )),
+                                  enabledBorderColor:
+                                      const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                    color: Colors.white70,
+                                  )),
+                                  controller: appointCtrl.phoneNumCtrl,
                                   width: 280,
                                   fillColor: Colors.transparent,
                                   hintText: 'Your Phone',
                                   cursorHeight: 25,
                                   fontColor: Colors.white,
+                                  // maxLength: 10,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(10),
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp(r'[0-9]')),
+                                  ],
                                 )
                               ],
                             ),
@@ -151,125 +184,175 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                DropDownWidget(
-                                  key: UniqueKey(),
-                                  dropdownTxt: 'Choose Department',
-                                  //departmentselectedValue,
-                                  dropdownTextColor: isSelectedDept
-                                      ? Colors.white
-                                      : Colors.white,
-                                  items: departmentlist
-                                      .map((String item) =>
-                                          DropdownMenuItem<String>(
-                                            value: item,
-                                            child: Text(
-                                              item,
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.black,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ))
-                                      .toList(),
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      departmentselectedValue = value;
-                                      isSelectedDept = true;
-                                    });
-                                  },
-                                  value: departmentselectedValue,
-                                ),
-                                /*const SizedBox(
-                            width: 10.0,
-                          ),*/
-                                DropDownWidget(
-                                  key: UniqueKey(),
-                                  dropdownTxt: 'Select Doctor',
-                                  dropdownTextColor: Colors.white,
-                                  items: doctorlist
-                                      .map((String item) =>
-                                          DropdownMenuItem<String>(
-                                            value: item,
-                                            child: Text(
-                                              item,
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.black,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ))
-                                      .toList(),
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      //print('Selected value: $value');
-                                      //dropdownTxt = '';
-                                      doctorselectedValue = value;
-                                      isSelectedDoctor = true;
-                                    });
-                                  },
-                                  value: doctorselectedValue,
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                DateTimePicker(
-                                  fontColor: Colors.white,
-                                  controller: dateController,
+                                TextBoxWidget(
+                                  hintTextColor: Colors.grey.shade500,
+                                  focusedborderSide: const UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                    color: Colors.white70,
+                                  )),
+                                  enabledBorderColor:
+                                      const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                    color: Colors.white70,
+                                  )),
+                                  controller: appointCtrl.phoneNumCtrl,
                                   width: 280,
                                   fillColor: Colors.transparent,
-                                  hintText: 'Date',
-                                  showCursor: false,
-                                  onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(2000),
-                                        lastDate: DateTime(2101));
-                                    if (pickedDate != null) {
-                                      //print(pickedDate);
-                                      String formattedDate =
-                                          DateFormat('dd-MM-yyyy')
-                                              .format(pickedDate);
-                                      //print(formattedDate);
+                                  hintText: 'Your E-mail',
+                                  cursorHeight: 25,
+                                  fontColor: Colors.white,
+                                  // maxLength: 10,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(10),
+                                    /*  FilteringTextInputFormatter.allow(
+                                        RegExp(r'[0-9]')), */
+                                  ],
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.184,
+                                  child: DropDownWidget(
+                                    dropdownTxt:
+                                        doctorselectedValue ?? "Select Test",
+                                    items: doctorlist.map((String value) {
+                                      return PopupMenuItem<String>(
+                                        value: value,
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.184, // Set width of the menu item
+                                          child: ListTile(
+                                            // Use ListTile for consistent styling
+                                            title: Text(value,
+                                                style: const TextStyle(
+                                                    color: Colors.black)),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    dropdownTextColor:
+                                        doctorselectedValue != null
+                                            ? Colors.white
+                                            : Colors.white,
+                                    onSelected: (String newValue) {
                                       setState(() {
-                                        dateController.text =
-                                            formattedDate; //set foratted date to TextField value.
+                                        doctorselectedValue = newValue;
+                                        appointCtrl.testCtrl.text =
+                                            doctorselectedValue ?? "";
                                       });
-                                    } else {
-                                      //print("Date is not selected");
-                                    }
-                                  },
-                                ),
-                                DateTimePicker(
-                                  fontColor: Colors.white,
-                                  controller: timeController,
-                                  width: 280,
-                                  fillColor: Colors.transparent,
-                                  hintText: 'Time',
-                                  showCursor: false,
-                                  onTap: () {
-                                    displayTimePicker(context);
-                                  },
-                                ),
+                                    },
+                                    selecteddropdownTextColor: Colors.white,
+                                  ),
+                                )
                               ],
                             ),
                             const SizedBox(
                               height: 30.0,
                             ),
+                            MutltiLineTextField(
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              hintText: 'Enter Your Message',
+                              maxLength: 70,
+                              width: MediaQuery.of(context).size.width,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(50),
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[a-zA-Z\s]+')),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 25.0,
+                            ),
                             CommonButtonWidget(
-                              backgroundColor: Colors.amber,
-                              borderColor: Colors.amber,
+                              backgroundColor: buttonColor,
+                              borderColor: buttonColor,
                               borderRadius: BorderRadius.circular(5.0),
                               btnText: 'Make an Appointment',
-                              foregroundColor: Colors.black,
-                              onPressed: () {},
+                              foregroundColor: Colors.white,
+                              onPressed: () {
+                                String errorMessage =
+                                    appointCtrl.validateAppointment();
+                                if (errorMessage.isEmpty) {
+                                  // Display process indicator
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  );
+                                  /* // Simulate sending email (replace with actual email sending logic)
+                                  bool emailSent = await popupCtrl.sendEmail(
+                                  selectedTests: popupCtrl.selectedTests,
+                                  email: popupCtrl.emailCntrl.text,
+                                  name: popupCtrl.username.text,
+                                  ); */
+                                  Navigator.of(context).pop();
+                                  // if (emailSent) {
+                                  // Display success alert
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Success'),
+                                        content:
+                                            const Text('Booked successfully.'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  // Clear form fields and checkboxes after successful submission
+                                  /*  popupCtrl.clearCheckboxes();
+                                  popupCtrl.emailCntrl.clear();
+                                  popupCtrl.username.clear(); */
+                                  /* } else {
+                                  // Display error message
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Error'),
+                                        content: const Text('Failed to send email.'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } */
+                                } else {
+                                  // Display error message
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Error'),
+                                        content: Text(errorMessage),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              },
                               height: 60,
                               width: 400,
                             )
@@ -289,7 +372,6 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                       children: [
                         Text(
                           'LEARN ANYTHING',
-                          
                           style: TextStyle(
                               color: textColor,
                               fontWeight: FontWeight.w900,
@@ -397,12 +479,12 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
     );
   }
 
-  Future displayTimePicker(BuildContext context) async {
+/*   Future displayTimePicker(BuildContext context) async {
     var time = await showTimePicker(context: context, initialTime: timeOfDay);
     if (time != null) {
       setState(() {
-        timeController.text = "${time.hour}:${time.minute}";
+        appointCtrl.timeCtrl.text = "${time.hour}:${time.minute}";
       });
     }
-  }
+  } */
 }

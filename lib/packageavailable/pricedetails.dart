@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ghswebsite/commonwidget/buttonwidget.dart';
-import 'package:ghswebsite/constants/color.dart';
-import 'package:ghswebsite/packageavailable/procedetmob.dart';
+import 'package:ghscareplus/commonwidget/buttonwidget.dart';
+import 'package:ghscareplus/constants/color.dart';
+import 'package:ghscareplus/packageavailable/procedetmob.dart';
 
 class PriceDetails extends StatefulWidget {
   const PriceDetails({super.key});
@@ -220,11 +220,11 @@ class _PriceDetailsState extends State<PriceDetails> {
                                   ),
                                 ),
                                 CommonButtonWidget(
-                                  backgroundColor: Colors.amber,
-                                  borderColor: Colors.amber,
+                                  backgroundColor: buttonColor,
+                                  borderColor: buttonColor,
                                   borderRadius: BorderRadius.circular(5.0),
                                   btnText: 'Get started'.toUpperCase(),
-                                  foregroundColor: Colors.black,
+                                  foregroundColor: Colors.white,
                                   onPressed: () {},
                                   height: 40,
                                   width: 200,

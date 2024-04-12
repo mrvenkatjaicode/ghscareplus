@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ghswebsite/commonwidget/buttonwidget.dart';
-import 'package:ghswebsite/constants/color.dart';
+import 'package:ghscareplus/commonwidget/buttonwidget.dart';
+import 'package:ghscareplus/constants/color.dart';
 
 class PriceDetMob extends StatefulWidget {
   const PriceDetMob({super.key});

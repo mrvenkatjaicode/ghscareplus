@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ghswebsite/about/aboutus.dart';
 import 'package:ghswebsite/appointment/appointment.dart';
@@ -240,7 +240,7 @@ void _showCheckBoxDialog(
                               email: popupCtrl.emailCntrl.text,
                               name: popupCtrl.username.text);
 
-                          popupCtrl.clearCheckboxes();
+                          //popupCtrl.clearCheckboxes();
                           popupCtrl.emailCntrl.clear();
                           popupCtrl.username.clear();
                           Navigator.of(context).pop();
@@ -442,3 +442,4 @@ class NavBarItem extends StatelessWidget {
     );
   }
 }
+ */

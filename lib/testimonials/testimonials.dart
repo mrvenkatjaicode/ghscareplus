@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:ghswebsite/constants/color.dart';
-import 'package:ghswebsite/constants/imageres.dart';
-import 'package:ghswebsite/constants/stringres.dart';
+import 'package:ghscareplus/constants/color.dart';
+import 'package:ghscareplus/constants/imageres.dart';
+import 'package:ghscareplus/constants/stringres.dart';
 
 class TestimonialWidget extends StatelessWidget {
   const TestimonialWidget({super.key});

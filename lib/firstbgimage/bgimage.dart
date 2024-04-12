@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ghswebsite/constants/imageres.dart';
+import 'package:ghscareplus/constants/imageres.dart';
 
 class BgImage extends StatelessWidget {
   const BgImage({super.key});

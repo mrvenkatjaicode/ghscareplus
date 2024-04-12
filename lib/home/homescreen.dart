@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ghswebsite/about/aboutus.dart';
-import 'package:ghswebsite/appointment/appointment.dart';
-import 'package:ghswebsite/blogpost/blogpost.dart';
-import 'package:ghswebsite/commonwidget/checkboxwidget.dart';
-import 'package:ghswebsite/constants/color.dart';
-import 'package:ghswebsite/contact/contactus.dart';
-import 'package:ghswebsite/controller/popupcontroller.dart';
-import 'package:ghswebsite/drawer/menu.dart';
-import 'package:ghswebsite/finddoctor/doctors.dart';
-import 'package:ghswebsite/firstbgimage/bgimage.dart';
-import 'package:ghswebsite/packageavailable/pricedetails.dart';
-import 'package:ghswebsite/servicegiven/services.dart';
-import 'package:ghswebsite/testimonials/testimonials.dart';
+import 'package:ghscareplus/about/aboutus.dart';
+import 'package:ghscareplus/appointment/appointment.dart';
+import 'package:ghscareplus/contact/contactus.dart';
+import 'package:ghscareplus/firstbgimage/landingPage.dart';
+import 'package:ghscareplus/packageavailable/pricedetails.dart';
+import 'package:ghscareplus/servicegiven/services.dart';
+import 'package:ghscareplus/trustedpartners/ourpartners.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,16 +18,11 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   int _currentIndex = 0;
 
-  List<Map<String, dynamic>> dataList = [
-    {'testname': 'Blood Group & type test'},
-    {'testname': 'Blood Cultire Test'},
-  ];
-
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
+    //var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: const MenuWidget(),
+      /* drawer: const MenuWidget(),
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Colors.white,
@@ -78,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onIndexChanged: () => updateIndex(3),
                   ),
                   const SizedBox(width: 20),
-                  NavBarItem(
+                  /* NavBarItem(
                     title: 'Doctors'.toUpperCase(),
                     onTap: () => scrollToSection(4),
                     isSelected: _currentIndex == 4,
@@ -91,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     isSelected: _currentIndex == 5,
                     onIndexChanged: () => updateIndex(5),
                   ),
-                  const SizedBox(width: 20),
+                  const SizedBox(width: 20), */
                   NavBarItem(
                     title: 'Blog'.toUpperCase(),
                     onTap: () => scrollToSection(6),
@@ -151,18 +139,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(width: 20),
         ],
-      ),
+      ), */
       body: SingleChildScrollView(
         controller: _scrollController,
         scrollDirection: Axis.vertical,
         child: const Column(children: [
-          BgImage(),
+          //BgImage(),
+          LandingPage(),
           AppointmentWidget(),
           ServiceAvailable(),
           AboutUs(),
-          OurDoctors(),
-          TestimonialWidget(),
-          BlogPost(),
+          OurPartners(),
+          //OurPartners
+          //OurDoctors(),
+          //TestimonialWidget(),
+         // BlogPost(),
           PriceDetails(),
           ContactUs()
         ]),
@@ -190,8 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-void _showCheckBoxDialog(
-    BuildContext context, List<Map<String, dynamic>> dataList) {
+/* void _showCheckBoxDialog(
+  BuildContext context, List<Map<String, dynamic>> dataList) {
   final PopUpController popupCtrl = Get.put(PopUpController());
 
   showDialog(
@@ -230,7 +221,92 @@ void _showCheckBoxDialog(
                     ),
                     const SizedBox(width: 20.0),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        String errorMessage = popupCtrl.validateInputs();
+                        if (errorMessage.isEmpty) {
+                          Navigator.of(context).pop();
+                          // Display process indicator
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          );
+
+                          // Simulate sending email (replace with actual email sending logic)
+                          bool emailSent = await popupCtrl.sendEmail(
+                            selectedTests: popupCtrl.selectedTests,
+                            email: popupCtrl.emailCntrl.text,
+                            name: popupCtrl.username.text,
+                          );
+                          Navigator.of(context).pop();
+                          if (emailSent) {
+                            // Display success alert
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Success'),
+                                  content:
+                                      const Text('Email sent successfully.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            // Clear form fields and checkboxes after successful submission
+                            popupCtrl.clearCheckboxes();
+                            popupCtrl.emailCntrl.clear();
+                            popupCtrl.username.clear();
+                          } else {
+                            // Display error message
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text('Failed to send email.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        } else {
+                          // Display error message
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Error'),
+                                content: Text(errorMessage),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+
+                      /* onPressed: () {
                         String errorMessage = _validateInputs(popupCtrl);
                         if (errorMessage.isEmpty) {
                           // Proceed with submitting the form
@@ -263,7 +339,7 @@ void _showCheckBoxDialog(
                             },
                           );
                         }
-                      },
+                      }, */
                       style: ButtonStyle(
                         minimumSize:
                             MaterialStateProperty.all(const Size(100, 40)),
@@ -402,42 +478,8 @@ void _showCheckBoxDialog(
       );
     },
   );
-}
+} */
 
-String _validateInputs(PopUpController popupCtrl) {
-  bool areAllChecked = popupCtrl.checkboxValues.any((value) => value);
-
-  String? isValidName(String name) {
-    // Regular expression pattern for name validation
-    final nameRegex = RegExp(r'^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$');
-    return nameRegex.hasMatch(name) ? null : 'Invalid name format.';
-  }
-
-  String? isValidEmail(String email) {
-    // Regular expression pattern for email validation
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    return emailRegex.hasMatch(email) ? null : 'Invalid email format.';
-  }
-
-  String? nameError = isValidName(popupCtrl.username.text);
-  String? emailError = isValidEmail(popupCtrl.emailCntrl.text);
-
-  // Display error message for checkbox
-  if (!areAllChecked) {
-    return 'Please select at least one test.';
-  }
-
-  // Display error message for name
-  if (nameError != null) {
-    return 'Please enter a valid name.';
-  }
-  // Display error message for email
-  if (emailError != null) {
-    return 'Please enter a valid email address.';
-  }
-
-  return ''; // if all are valid
-}
 
 class NavBarItem extends StatelessWidget {
   final String title;
