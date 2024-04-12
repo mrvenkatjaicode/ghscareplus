@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ghscareplus/commonwidget/buttonwidget.dart';
 import 'package:ghscareplus/constants/color.dart';
@@ -148,76 +149,82 @@ class _PriceDetailsState extends State<PriceDetails> {
                                   : null,
                             ),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  plan.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16),
-                                ),
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
-                                RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                        child: Transform.translate(
-                                          offset: const Offset(0.0, -20.0),
-                                          child: FaIcon(
-                                            FontAwesomeIcons.dollarSign,
-                                            color: textColor,
-                                            size: 20,
-                                          ),
-                                        ),
-                                      ),
-                                      TextSpan(
-                                          text: cost.toString(),
-                                          style: TextStyle(
-                                              fontSize: 40,
-                                              color: textColor,
-                                              fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
-                                SizedBox(
-                                  height: 300,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: priceInfoList[index].length,
-                                    itemBuilder:
-                                        (BuildContext context, int innerIndex) {
-                                      return Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                Column(
+                                  children: [
+                                    Text(
+                                      plan.toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16),
+                                    ),
+                                    const SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 20.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                FaIcon(
-                                                  FontAwesomeIcons.rightLong,
-                                                  color: textColor,
-                                                  size: 14,
-                                                ),
-                                                const SizedBox(
-                                                  width: 10.0,
-                                                ),
-                                                Text(priceInfoList[index]
-                                                    [innerIndex]),
-                                              ],
+                                          WidgetSpan(
+                                            child: Transform.translate(
+                                              offset: const Offset(0.0, -20.0),
+                                              child: FaIcon(
+                                                FontAwesomeIcons.dollarSign,
+                                                color: textColor,
+                                                size: 20,
+                                              ),
                                             ),
-                                          )
+                                          ),
+                                          TextSpan(
+                                              text: cost.toString(),
+                                              style: TextStyle(
+                                                  fontSize: 40,
+                                                  color: textColor,
+                                                  fontWeight: FontWeight.bold)),
                                         ],
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    SizedBox(
+                                      // height: 300,
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: priceInfoList[index].length,
+                                        itemBuilder: (BuildContext context,
+                                            int innerIndex) {
+                                          return Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 20.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    FaIcon(
+                                                      FontAwesomeIcons
+                                                          .rightLong,
+                                                      color: textColor,
+                                                      size: 14,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10.0,
+                                                    ),
+                                                    Text(priceInfoList[index]
+                                                        [innerIndex]),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 CommonButtonWidget(
                                   backgroundColor: buttonColor,

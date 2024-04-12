@@ -93,7 +93,7 @@ class _ServiceAvailableState extends State<ServiceAvailable> {
                         crossAxisCount: width > 1000 ? 3 : 2,
                         crossAxisSpacing: 40.0,
                         mainAxisSpacing: 20.0,
-                        childAspectRatio: width > 1000 ? 1.8 / 1.0 : 1.0 / 0.9),
+                        childAspectRatio: width > 1000 ? 1.8 / 1.1 : 1.0 / 0.9),
                     itemCount: gridList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return MouseRegion(
@@ -111,53 +111,56 @@ class _ServiceAvailableState extends State<ServiceAvailable> {
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(
                                 20.0, 10.0, 20.0, 10.0),
-                            child: Column(children: [
-                              Container(
-                                width: 100.0,
-                                height: 100.0,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    gradient: isHoverService[index]
-                                        ? radiantTextColor
-                                        : radiantColor),
-                                child: Center(
-                                  child: FaIcon(
-                                    gridList[index]['icon'],
-                                    color: Colors.white,
-                                    size: 50,
+                            child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        gradient: isHoverService[index]
+                                            ? radiantTextColor
+                                            : radiantColor),
+                                    child: Center(
+                                      child: FaIcon(
+                                        gridList[index]['icon'],
+                                        color: Colors.white,
+                                        size: 50,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              Text(
-                                gridList[index]['skill'],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: isHoverService[index]
-                                      ? Colors.white
-                                      : textColor, //textColor,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, right: 20.0),
-                                child: Text(
-                                  gridList[index]['desc'],
-                                  style: TextStyle(
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    gridList[index]['skill'],
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
                                       color: isHoverService[index]
                                           ? Colors.white
-                                          : Colors.grey.shade800),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ]),
+                                          : textColor, //textColor,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 20.0),
+                                    child: Text(
+                                      gridList[index]['desc'],
+                                      style: TextStyle(
+                                          color: isHoverService[index]
+                                              ? Colors.white
+                                              : Colors.grey.shade800),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
+                                ]),
                           ),
                         ),
                       );
